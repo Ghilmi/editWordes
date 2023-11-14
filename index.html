@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;500;600;700&family=Jomhuria&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap");
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Cairo", sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px #777 solid;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .btnStyle {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+        
+        button {
+            background-color: #3b90ff;
+            outline: none;
+            border: none;
+            border-radius: 2px;
+            transition: all linear 0.3s;
+            padding: 5px;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+            color: white;
+            background-color: rgb(43, 0, 255);
+            box-shadow: 1px 2px 0px rgba(119, 119, 119, 0.73);
+        }
+        
+        input {
+            height: 30px;
+            border: 2px solid #777;
+            border-radius: 10px;
+            outline: none !important;
+            padding: 5px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="main">
+        <h1 id="test">hi evry one</h1>
+        <input type="text" id="_userWord">
+        <div class="btnStyle">
+            <button id="_lower">Lower</button>
+            <button id="_upper">Upper</button>
+            <button id="_proper">Proper</button>
+            <button id="_clear">Clear</button>
+        </div>
+        <div class="_output">
+            <input type="text" id="_output">
+            <button id="_copy">copy</button>
+        </div>
+    </div>
+    <script>
+        let modifWord;
+
+        function getInput() {
+            return _userWord.value;
+        }
+
+        function setOutput(input) {
+            _output.value = input;
+        }
+
+        // lower function
+        function lowerfunc() {
+            let temp = getInput();
+            setOutput(temp.toLowerCase());
+        }
+
+        // upper function
+        function upperfunc() {
+            let temp = getInput();
+            setOutput(temp.toUpperCase());
+        }
+        // proper function
+        function propfunc() {
+            let temp = getInput();
+            temp = temp.split("").shift().toUpperCase() + temp.slice(1);
+
+            setOutput(temp);
+        }
+
+        function clearfunc() {
+            _userWord.value = '';
+            setOutput('');
+
+        }
+        const copyObj = new Event('copy')
+
+
+        _lower.addEventListener('click', lowerfunc);
+        _upper.addEventListener('click', upperfunc);
+        _proper.addEventListener('click', propfunc);
+        _clear.addEventListener('click', clearfunc);
+
+        _copy.addEventListener('click', async() => {
+            await navigator.clipboard.writeText(_output.value);
+            console.log('coped')
+            console.log(_output.value)
+            _copy.style.background = "#4CAF50";
+            setTimeout(() => {
+                _copy.style.background = "#3b90ff";
+            }, 2000);
+        })
+    </script>
+</body>
+
+</html>
